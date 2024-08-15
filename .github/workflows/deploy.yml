@@ -19,15 +19,14 @@ jobs:
         node-version: "latest"
         cache: "npm"
 
-    - name: Install wangler
-      run: npm i -g wrangler@latest
-
     - name: Install modules
       run: npm ci
 
     - name: Prepare
-      run: sed -i "s/KV_NAME/{{ secrets.KV_NAME }}/g" wrangler.toml && sed -i "s/SB_NAME/{{ secrets.SB_NAME }}/g" wrangler.toml
+      run: sed -i "s/KV_NAME/{{ secrets.KV_NAME }}/g" wrangler.toml
 
     - name: Deploy
-      run: CF_ACCOUNT_ID=${{ secrets.CF_ACCOUNT_ID }} CF_API_TOKEN=${{ secrets.CF_API_TOKEN }} wrangler deploy
-
+      env: 
+        CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      run: npm deploy
