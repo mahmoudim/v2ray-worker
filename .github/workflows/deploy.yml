@@ -25,7 +25,7 @@ jobs:
     - name: Install modules
       run: npm ci
 
-    -name: Prepare
+    - name: Prepare
       run: sed -i "s/KV_NAME/{{ secrets.KV_NAME }}/g" wrangler.toml && sed -i "s/SB_NAME/{{ secrets.SB_NAME }}/g" wrangler.toml
 
     - name: Deploy
